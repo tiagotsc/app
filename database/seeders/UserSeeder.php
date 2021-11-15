@@ -60,9 +60,9 @@ class UserSeeder extends Seeder
                     [
                         'id' => 3,
                         'name' => 'NanoTech',
-                        'username' => 'nanoTech',
+                        'username' => 'nanotech',
                         'email' => 'nanoTech@teste.com.br',
-                        'password' => Hash::make('nanoTech'),
+                        'password' => Hash::make('nanotech'),
                         'api_token' => 'vkzAF6aZM8bOhiF0Un6nH6SviNCQrsTUEbWKrlziDLS8GrzD3HeBeIrIkrXT',
                         'cpf_cnpj' => '17.658.435/0501-34',
                         'active' => '1',
