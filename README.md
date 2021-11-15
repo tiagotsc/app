@@ -16,7 +16,7 @@
 
 ## Acesso ao Banco:
 
-# Banco Mysql: #
+### Banco Mysql: ###
 - Host: IP_SUA_MAQUINA_DOCKER
 - Usuário: app
 - Senha: app
@@ -27,7 +27,7 @@
 - Login: admin (Usuário admin do tipo comum)
 - Senha: admin
 - API Token: stcNdoonMY3jxPf6nIQCvBwTmCKPr2ypGA0U6KgzN7AkATXxisyw13nNpqlD
-
+_________________________________________________________________________
 
 - Login: diego (Usuário do tipo comum)
 - Senha: diego
