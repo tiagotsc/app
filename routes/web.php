@@ -45,7 +45,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('role/alldatajson', 'RoleController@allDataJson')->name('role.alldatajson')->middleware('can:roles.manager');
 
     # WALLET
-    #Route::resource('/wallet', 'WalletController');
     Route::get('wallet', 'WalletController@index')->name('wallet.index');
     Route::get('wallet/{id}/edit', 'WalletController@edit')->name('wallet.edit');
     Route::get('wallet/datajson/{id?}', 'WalletController@dataJson')->name('wallet.datajson');
