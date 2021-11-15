@@ -1,0 +1,45 @@
+.logo-style{
+    width:50px;
+}
+/*Campos obrigatórios*/
+.mandatory{
+    color:red;
+    margin-left: 3px;
+}
+/*campos que apresentam erro*/
+.error{
+    text-align: left;
+	color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+	position: relative;
+    padding: .20rem 1rem;
+    margin-bottom: 0.2rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+	width: 100%;
+	display: block;
+}
+
+/*div pai do log */
+#div_logo{
+    margin-bottom:25px;
+}
+
+/* img log */
+#img_logo{
+    width:50px; 
+    margin-right:10px;
+}
+
+.color-white{
+    color: white !important;
+}
+
+.color-blue{
+    color: blue !important;
+}
+
+.color-red{
+    color: red !important;
+}

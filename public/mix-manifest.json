@@ -1,0 +1,20 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/additional_template.css": "/css/additional_template.css",
+    "/css/customized.min.css": "/css/customized.min.css",
+    "/js/alpinejs.main.min.js": "/js/alpinejs.main.min.js",
+    "/js/util.min.js": "/js/util.min.js",
+    "/js/users/alpinejs.frm.min.js": "/js/users/alpinejs.frm.min.js",
+    "/js/users/frm.min.js": "/js/users/frm.min.js",
+    "/js/users/index.min.js": "/js/users/index.min.js",
+    "/js/permissions/alpinejs.frm.min.js": "/js/permissions/alpinejs.frm.min.js",
+    "/js/permissions/frm.min.js": "/js/permissions/frm.min.js",
+    "/js/permissions/index.min.js": "/js/permissions/index.min.js",
+    "/js/roles/alpinejs.frm.min.js": "/js/roles/alpinejs.frm.min.js",
+    "/js/roles/frm.min.js": "/js/roles/frm.min.js",
+    "/js/roles/index.min.js": "/js/roles/index.min.js",
+    "/js/wallet/alpinejs.frm.min.js": "/js/wallet/alpinejs.frm.min.js",
+    "/js/wallet/frm.min.js": "/js/wallet/frm.min.js",
+    "/js/wallet/index.min.js": "/js/wallet/index.min.js"
+}
