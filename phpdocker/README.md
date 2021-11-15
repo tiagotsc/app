@@ -24,8 +24,8 @@ You can access your application via **`localhost`**. Mailhog and nginx both resp
 
 Service|Address outside containers
 ------|---------|-----------
-Webserver|[localhost:10000](http://localhost:10000)
-MySQL|**host:** `localhost`; **port:** `10002`
+Webserver|[localhost:6000](http://localhost:6000)
+MySQL|**host:** `localhost`; **port:** `6002`
 
 ## Hosts within your environment ##
 
@@ -35,7 +35,6 @@ Service|Hostname|Port number
 ------|---------|-----------
 php-fpm|php-fpm|9000
 MySQL|mysql|3306 (default)
-Redis|redis|6379 (default)
 
 # Docker compose cheatsheet #
 
