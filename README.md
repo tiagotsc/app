@@ -1,62 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+PASSO A PASSO PARA USO EM DOCKER:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1 - Através do Powershell ou CMD, acesse a pasta do projeto (aonde esta o arquivo docker-compose.yaml), e executar o comando: docker-compose up --build -d
 
-## About Laravel
+2- Para entrar no container execute: docker-compose exec php-fpm bash
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+3 - Já dentro do container execute o comando: composer install
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+4 - Dentro do container, execute o migrate para criar as tabelas: php artisan migrate
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+5 - Dentro do container, execute o seed para popular o banco: php artisan db:seed
 
-## Learning Laravel
+6 - Dentro do container, dê permissão a pasta storage: chmod -R 777 storage/
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+7 - Dentro do container, caso queira rodar testes da carteira, execute: ./vendor/bin/phpunit --group wallet
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Acesso ao Banco:
 
-## Laravel Sponsors
+Banco Mysql:
+- Host: IP_SUA_MAQUINA_DOCKER
+- Usuário: app
+- Senha: app
+- Banco de dado: app
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Usuário da aplicação cadastrado no banco:
 
-### Premium Partners
+- Login: admin (Usuário admin do tipo comum)
+- Senha: admin
+- API Token: stcNdoonMY3jxPf6nIQCvBwTmCKPr2ypGA0U6KgzN7AkATXxisyw13nNpqlD
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+- Login: diego (Usuário do tipo comum)
+- Senha: diego
+- API Token: $2y$10$M6EkjDstqM9pQT4l2OyujenbtEUNO0BV4dch6zb5/L2AcaaNOM38W
 
-## Contributing
+- Login: nanotech (Usuário do tipo logista)
+- Senha: nanotech 
+- API Token: vkzAF6aZM8bOhiF0Un6nH6SviNCQrsTUEbWKrlziDLS8GrzD3HeBeIrIkrXT
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Para acessar o front-end da aplicação, acesse no navegador:
 
-## Code of Conduct
+http://IP_SUA_MAQUINA_DOCKER
+Na tela de login, logue com algum dos usuários informados acima
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Métodos disponíveis da API de transação e seus respectivos exemplos de uso:
 
-## Security Vulnerabilities
+- Listando carteira do usuário Diego:
+	- URL: http://IP_SUA_MAQUINA_DOCKER/api/wallet/data
+	- Authorization: Bearer Token $2y$10$M6EkjDstqM9pQT4l2OyujenbtEUNO0BV4dch6zb5/L2AcaaNOM38W
+	- Método: GET
+	- Header: [{"key":"Content-Type","value":"application/json"]
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Usuário Diego enviando dinheiro para logista NanoTech:
+	- URL: http://IP_SUA_MAQUINA_DOCKER/api/wallet/money/send/2
+	- Authorization: Bearer Token $2y$10$M6EkjDstqM9pQT4l2OyujenbtEUNO0BV4dch6zb5/L2AcaaNOM38W
+	- Método: PUT
+	- Header: [{"key":"Content-Type","value":"application/json"]
+	- Body raw: { "transfer": "10", "destiny": 3 }
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Listando transações do usuário Diego:
+	- URL: http://IP_SUA_MAQUINA_DOCKER/api/wallet/transactions
+	- Authorization: Bearer Token $2y$10$M6EkjDstqM9pQT4l2OyujenbtEUNO0BV4dch6zb5/L2AcaaNOM38W
+	- Método: GET
+	- Header: [{"key":"Content-Type","value":"application/json"]
