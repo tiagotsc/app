@@ -39,6 +39,7 @@ Usuário da aplicação cadastrado no banco:
 Para acessar o front-end da aplicação, acesse no navegador:
 
 http://IP_SUA_MAQUINA_DOCKER
+
 Na tela de login, logue com algum dos usuários informados acima
 
 Métodos disponíveis da API de transação e seus respectivos exemplos de uso:
