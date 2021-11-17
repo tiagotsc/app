@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 # WALLET
 Route::group(['middleware' => ['auth:api', 'tokenValid']], function () {
-    Route::get('wallet/data/{id?}', 'WalletController@dataJson')->name('wallet_api.datajson');
+    Route::get('wallet/data/{idWallet?}', 'WalletController@dataJson')->name('wallet_api.datajson');
     Route::get('wallet/transactions', 'WalletController@allDataJson')->name('wallet_api.alldatajson');
     Route::put('wallet/money/send/{origin}', 'WalletController@update')->name('wallet_api.update');
 });

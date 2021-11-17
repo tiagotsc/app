@@ -49,8 +49,8 @@ class Wallet extends Model
         DB::transaction(function () use ($origin, $transfer, $destiny) {
             $originNewBalance = $origin->balance - $transfer;
             $destinyNewBalance = $destiny->balance + $transfer;
-            self::originUpdate($origin, $originNewBalance, $transfer);
-            self::destinyUpdate($destiny, $destinyNewBalance, $transfer);
+            self::originUpdate($origin, $originNewBalance);
+            self::destinyUpdate($destiny, $destinyNewBalance);
             self::transactionLogStore($origin, $originNewBalance, $transfer, $destiny, $destinyNewBalance);
         });
         return $origin->id;
@@ -60,9 +60,8 @@ class Wallet extends Model
      * Atualiza a carteira de quem enviou o dinheiro
      * @param $origin dados da carteira origem
      * @param $originNewBalance novo saldo carteira origem
-     * @param $transfer valor enviado
      */
-    private static function originUpdate($origin, $originNewBalance, $transfer)
+    private static function originUpdate($origin, $originNewBalance)
     {
         DB::table('wallet')
             ->where('user_id',$origin->user_id)
@@ -73,9 +72,8 @@ class Wallet extends Model
      * Atualiza a carteira de quem recebeu o dinheiro
      * @param $destiny dados da carteira destino
      * @param $destinyNewBalance novo saldo carteira destino
-     * @param $transfer valor recebido
      */
-    private static function destinyUpdate($destiny, $destinyNewBalance, $transfer)
+    private static function destinyUpdate($destiny, $destinyNewBalance)
     {
         DB::table('wallet')
             ->where('user_id',$destiny->user_id)
@@ -94,7 +92,7 @@ class Wallet extends Model
     {
         DB::table('wallet_log')->insert([
             [
-                'transaction' => 'send', 
+                'transaction' => 'send',
                 'before_value' => $origin->balance, # Valor antes da transferência
                 'current_value' => $originNewBalance, # Valor após a transferência
                 'transfer_value' => $transfer, # Valor que foi transferido
@@ -104,7 +102,7 @@ class Wallet extends Model
                 'updated_at' => date('Y-m-d h:i:s')
             ],
             [
-                'transaction' => 'received', 
+                'transaction' => 'received',
                 'before_value' => $destiny->balance, # Valor antes do recebimento
                 'current_value' => $destinyNewBalance, # Valor após recebimento
                 'transfer_value' => $transfer, # Valor que foi transferido

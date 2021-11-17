@@ -20,7 +20,7 @@ Route::get('/', function () {
     }else{
         return view('auth.login');
     }
-    
+
 });
 
 Route::get('/dashboard', function () {
@@ -46,8 +46,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     # WALLET
     Route::get('wallet', 'WalletController@index')->name('wallet.index');
-    Route::get('wallet/{id}/edit', 'WalletController@edit')->name('wallet.edit');
-    Route::get('wallet/datajson/{id?}', 'WalletController@dataJson')->name('wallet.datajson');
+    Route::get('wallet/edit', 'WalletController@edit')->name('wallet.edit');
+    Route::get('wallet/datajson/{idWallet?}', 'WalletController@dataJson')->name('wallet.datajson');
     Route::get('wallet/alldatajson', 'WalletController@allDataJson')->name('wallet.alldatajson');
     Route::put('wallet/money/send/{origin}', 'WalletController@update')->name('wallet.update');
 

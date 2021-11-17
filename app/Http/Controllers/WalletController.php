@@ -15,10 +15,8 @@ class WalletController extends Controller
     /**
      * Envio de notificação
      * @param $balanceNow saldo atual
-     * @param $transfer valor transferido
-     * @param $destiny quem recebe
      */
-    public function notifySend($balanceNow, $transfer, $destiny)
+    public function notifySend($balanceNow)
     {
         $status = 'ok';
         $desc = [];
@@ -59,7 +57,7 @@ class WalletController extends Controller
         }
         return $check;
     }
-    
+
     /**
      * Verifica se existe saldo o sufiente para transfêrencia
      * @param $check status da checagem
@@ -123,11 +121,11 @@ class WalletController extends Controller
      *
      * @param $id ID wallet
      */
-    public function getWallet($id = '')
+    public function getWallet($idWallet = '')
     {
         $where = [['user_id', '=', Auth::id()]]; # Pega wallet por user id
-        if($id != ''){
-            $where[] = ['id', '=', $id]; # pega wallet pelo próprio id
+        if($idWallet != ''){
+            $where[] = ['id', '=', $idWallet]; # pega wallet pelo próprio id
         }
         return Wallet::where($where)
                 ->firstOrFail();
@@ -139,17 +137,16 @@ class WalletController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         return view('wallet.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id ID wallet
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         return view('wallet.frm');
     }
@@ -168,12 +165,12 @@ class WalletController extends Controller
         if($validTransaction['status'] != 'ok'){
             return response()->json($validTransaction['desc'], $validTransaction['code']);
         }
-        
+
         $destiny = Wallet::where('user_id', $request->destiny)->firstOrFail(); # Dados da carteira destino
         $originWalletId = Wallet::transactionStore($origin, $transfer, $destiny); # Efetua transação
         $balanceNow = round(Wallet::find($originWalletId)->balance,2);
 
-        $notify = $this->notifySend($balanceNow, $transfer, $destiny); # Envia notificação
+        $notify = $this->notifySend($balanceNow); # Envia notificação
         if($notify['status'] != 'ok'){
             return response()->json($notify['desc'], $notify['code']);
         }
@@ -189,17 +186,17 @@ class WalletController extends Controller
     /**
      * Trás dados de um único registro
      */
-    public function dataJson($id = '')
+    public function dataJson($idWallet = '')
     {
-        $datas = $this->getWallet($id);
+        $datas = $this->getWallet($idWallet);
         $destinations = User::where('active','1')
                 ->where('id', '!=',Auth::id())
                 ->orderBy('name')
                 ->pluck('name','id');
-        return response()->json(['data' => $datas, 
+        return response()->json(['data' => $datas,
                                 'destinations' => $destinations,
                                 'link_wallet' => route('wallet.index'),
-                                'link_edit' => route('wallet.edit', $datas->id),
+                                'link_edit' => route('wallet.edit'),
                                 'link_update' => route('wallet.update', $datas->id),
                                 'link_api_wallet' => route('wallet_api.datajson'),
                                 'link_api_wallet_update' => route('wallet_api.update', $datas->id),
@@ -217,7 +214,7 @@ class WalletController extends Controller
         return response()->json([
                                     'data' => $wallet,
                                     'transactions' => $walletLog,
-                                    'link_edit' => route('wallet.edit', $wallet->id),
+                                    'link_edit' => route('wallet.edit'),
                                     'link_update' => route('wallet.update', $wallet->id),
                                     'link_api_wallet' => route('wallet_api.datajson'),
                                     'link_api_wallet_update' => route('wallet_api.update', $wallet->id),
